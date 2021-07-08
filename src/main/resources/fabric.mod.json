@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "dcch",
+  "version": "2.0+1.17",
+  "name": "DCCH",
+  "description": "Don't clear chat history!",
+  "authors": [
+    "anar4732",
+    "Emmaffle"
+  ],
+  "license": "CC0-1.0",
+  "environment": "client",
+  "icon": "icon.png",
+  "mixins": [
+    "dcch.mixins.json"
+  ]
+}
