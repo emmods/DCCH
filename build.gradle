@@ -1,0 +1,44 @@
+plugins { id "fabric-loom" version "0.7-SNAPSHOT" }
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+archivesBaseName = project.archives_base_name
+version = project.mod_version
+
+repositories {
+  maven {
+    name = "legacy-fabric"
+    url = "https://maven.legacyfabric.net"
+  }
+}
+
+minecraft {
+  intermediaryUrl = {
+    return "https://maven.legacyfabric.net/net/fabricmc/intermediary/" + it + "/intermediary-" + it + "-v2.jar"
+  }
+}
+
+dependencies {
+  implementation "com.google.guava:guava:23.5-jre"
+  minecraft "com.mojang:minecraft:${project.minecraft_version}"
+  mappings "net.fabricmc:yarn:${project.minecraft_version}+build.${project.yarn_mappings}:v2"
+  modImplementation ("net.fabricmc:fabric-loader-1.8.9:${project.loader_version}") {
+    exclude module: "guava"
+  }
+}
+
+tasks.withType(JavaCompile) { it.options.encoding = "UTF-8" }
+
+jar { from("LICENSE") }
+
+loom {
+  runs {
+    oldClient {
+      client()
+      ideConfigGenerated project.rootProject == project
+      source sourceSets.main
+      programArgs "--userProperties", "{}"
+    }
+  }
+}
